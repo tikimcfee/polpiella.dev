@@ -2,30 +2,13 @@
 import BlogPreview from '../components/BlogPreview.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+import NavHeader from '../components/NavHeader.astro'
 
 const posts = Astro.fetchContent('../_posts/*.md')
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 ---
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <title>polpielladev 📱 | A blog about software engineering and app development</title>
-    <meta name="twitter:title" content="polpielladev 📱 | A blog about software engineering and app development" />
-    <meta name="twitter:description" content="A blog where I talk about software development topics in languages like Swift, Javascript and using frameworks such as Next.js, React, Combine and many more!" />
-    <meta name="description" content="A blog where I talk about software development topics in languages like Swift, Javascript and using frameworks such as Next.js, React, Combine and many more!" />
-    <meta name="twitter:site" content="@polpielladev" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href={Astro.resolve('../styles/global.css')}>
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="RSS Feed for polpiella.dev"
-      href="/rss.xml"
-    />
-    <script hoist src="https://cdn.usefathom.com/script.js" data-site="FBLWSUCQ" defer></script>
-</head>
+<NavHeader title="polpielladev 📱 | A blog about software engineering and app development" description="A blog where I talk about software development topics in languages like Swift, Javascript and using frameworks such as Next.js, React, Combine and many more!" image="" />
 <body class="dark:bg-gray-900">
     <main class="grid content-center min-h-screen">
         <Header />
