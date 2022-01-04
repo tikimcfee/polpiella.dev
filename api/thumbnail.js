@@ -95,7 +95,7 @@ function getHTML(title) {
         <div class="line"></div>
         <h1>${title}</h1>
         <div class="blog-info">
-            <img src="https://polpiella.dev/assets/profile.png" />
+            <img src="https://polpiella.dev/assets/profile.jpg" />
             <div>
             <h2>polpiella<span class="rounded">DEV</span></h2>
             <p>

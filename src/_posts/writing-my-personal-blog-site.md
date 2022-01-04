@@ -6,7 +6,7 @@ date: "2021-12-22T05:35:07.322Z"
 readtime: "8"
 tags: [{ name: "Web", slug: "web" }, { name: "Career", slug: "career" }]
 author:
-  name: "Pol Piella"
+    name: "Pol Piella"
 ---
 
 In this article, I will take you through the reasons why I decided to create my personal blog from scratch, what technologies I used to do so and what influenced the decisions I made along the process.
@@ -61,7 +61,7 @@ This was a major improvement, **SSR** and **static files** made my site a lot fa
 
 > Both images (the one below and its comparison which you can find in the following section) were captured in development builds of my site and the amount of javascript that I was loading unnecessarily is truly staggering.
 
-![Concurrency cancelled run ](/assets/posts/writing-my-personal-blog-site/nextjs.png)
+![Concurrency cancelled run ](/assets/posts/writing-my-personal-blog-site/nextjs.jpg)
 
 ### The final (for now) iteration: Astro
 
@@ -69,7 +69,7 @@ The problem with a vanilla application is that it makes things a lot more comple
 
 It does also have a **remarkably** fast build time, which makes it ideal for scalability as the number of posts continues to increase. And, of course, as you can see in the image below, I went from loading 49.8 MB of JS to **loading as little as zero!** 🎉
 
-![Concurrency cancelled run ](/assets/posts/writing-my-personal-blog-site/astro.png)
+![Concurrency cancelled run ](/assets/posts/writing-my-personal-blog-site/astro.jpg)
 
 ## Conclusion
 
