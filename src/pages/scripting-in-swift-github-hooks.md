@@ -1,6 +1,6 @@
 ---
-title: "Scripting with Swift: Github Hooks"
-slug: "scripting-with-swift-github-hooks"
+title: "Scripting in Swift: Github Hooks"
+slug: "scripting-in-swift-github-hooks"
 excerpt: "Using Swift as to write a pre-commit-msg git hook so that adding ticket numbers to a commit message can be automated."
 date: "2022-04-03T12:00:00.322Z"
 readtime: "8"
@@ -8,7 +8,6 @@ tags: [{ name: "Tools", slug: "tools" }, { name: "Swift", slug: "swift" }]
 author:
   name: "Pol Piella"
 layout: ../layouts/BlogPostLayout.astro
-draft: true
 ---
 
 This week I decided to tick one of my to-do items which I have been putting off for a while at work to improve my git workflow. 
@@ -55,6 +54,7 @@ let commitMessageFile = CommandLine.arguments[1]
 
 guard let data = FileManager.default.contents(atPath: commitMessageFile),
       let commitMessage = String(data: data, encoding: .utf8) else {
+	  print("Could not read commit message file")
     exit(1)
 }
 ```
