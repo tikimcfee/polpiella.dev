@@ -41,7 +41,7 @@ At the top of the created file, add the swift shebang:
 import Foundation
 ```
 
-This is necessary so that when git executes the file, the shebang will make sure that the `/bin/swift` binary is invoked with the file as its input data.
+This is necessary so that when git executes the file, the shebang will make sure that the `/usr/bin/swift` binary is invoked with the file as its input data.
 
 ### Writing the git hook
 The project is all set up, so the git hook can now be written.
@@ -73,18 +73,27 @@ Let's start by adding the ability for our script to invoke a command from the `z
 ```swift:main.swift
 func shell(_ command: String) -> String {
     let task = Process()
-    let pipe = Pipe()
+    let outputPipe = Pipe()
+    let errorPipe = Pipe()
     
-    task.standardOutput = pipe
-    task.standardError = pipe
+    task.standardOutput = outputPipe
+    task.standardError = errorPipe
     task.arguments = ["-c", command]
     task.launchPath = "/bin/zsh"
     task.launch()
     
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)!
-    
-    return output
+    if let errorData = try? errorPipe.fileHandleForReading.readToEnd(),
+       let errorMessage = String(data: errorData, encoding: .utf8) {
+        print("Error occured while running: '\(command)'")
+        print(errorMessage)
+        exit(1)
+    } else if let outputData = try? outputPipe.fileHandleForReading.readToEnd(),
+              let outputMessage = String(data: outputData, encoding: .utf8){
+        return outputMessage
+    } else {
+        print("An unknown error occurred while running the '\(command)' command")
+        exit(1)
+    }
 }
 ``` 
 
@@ -126,9 +135,9 @@ if !commitMessage.contains(ticketNumber) {
 ```
 
 #### Setting up the git hook
-Now that the script is ready, it is time to tell it where it should. Git hooks can be set up globally or on a per-repo basis. 
+Now that the script is ready, it is time to tell it when it should execute. 
 
-My personal preference for these kind of scripts is to set them up on a per-repo basis, as that gives you more control and visibility in case something goes wrong and, should the hook start to fail, it would fail for the repos where it's added and not globally.
+Git hooks can be set up globally or on a per-repo basis. My personal preference for these kind of scripts is to set them up on specific repos, as that gives you more control and visibility in case something goes wrong and, should the hook start to fail, it would fail for the repos where it's added and not globally.
 
 To set them up, we simply need to make the file executable and then rename it and copy it to the `.git/hooks/` directory for the desired repo:
 
